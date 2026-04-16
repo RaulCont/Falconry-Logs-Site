@@ -8,11 +8,20 @@
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
-    function handleAction(action) {
+    // Si viene con ?action= (redirigido desde index.html), abrir deep link directamente
+    const action = params.get("action");
+    if (token && action) {
+      window.location.href = `falconrylogs://invitation/${action}?token=${token}`;
+      setTimeout(() => {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.raulcont.FalconryLogs";
+      }, 2000);
+    }
+
+    function handleAction(act) {
       if (!token) return;
 
       // Intenta abrir la app con la acción correspondiente
-      window.location.href = `falconrylogs://invitation/${action}?token=${token}`;
+      window.location.href = `falconrylogs://invitation/${act}?token=${token}`;
 
       // Si la app no se abre en 2 segundos, redirige a descarga
       setTimeout(() => {
