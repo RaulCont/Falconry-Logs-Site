@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falconry Logs - Company Invitation</title>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    function handleAction(action) {
+      if (!token) return;
+
+      // Intenta abrir la app con la acción correspondiente
+      window.location.href = `falconrylogs://invitation/${action}?token=${token}`;
+
+      // Si la app no se abre en 2 segundos, redirige a descarga
+      setTimeout(() => {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.raulcont.FalconryLogs";
+      }, 2000);
+    }
+  </script>
+</head>
+<body>
+  <p>You have been invited to join a company on Falconry Logs.</p>
+  <p>
+    <a id="accept" href="#">Accept invitation</a> |
+    <a id="reject" href="#">Reject invitation</a>
+  </p>
+  <script>
+    const t = new URLSearchParams(window.location.search).get("token");
+    document.getElementById("accept").href = `falconrylogs://invitation/accept?token=${t}`;
+    document.getElementById("reject").href = `falconrylogs://invitation/reject?token=${t}`;
+  </script>
+</body>
+</html>
